@@ -1,0 +1,1066 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Maya Portfolio — Frontend Technical Presentation</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800;900&family=Crimson+Pro:ital,wght@1,400&display=swap" rel="stylesheet">
+  <style>
+    /* ── Print / PDF page setup ─────────────────────────── */
+    @page {
+      size: A4 landscape;
+      margin: 0;
+    }
+
+    *, *::before, *::after {
+      margin: 0; padding: 0; box-sizing: border-box;
+    }
+
+    html {
+      font-size: 14px;
+      -webkit-font-smoothing: antialiased;
+    }
+
+    body {
+      font-family: 'Inter', sans-serif;
+      background: #0B0B0D;
+      color: #FFFFFF;
+    }
+
+    /* ── Slide base ─────────────────────────────────────── */
+    .slide {
+      width: 100%;
+      min-height: 100vh;
+      padding: 48px 64px;
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+      page-break-after: always;
+      break-after: page;
+      position: relative;
+      overflow: hidden;
+    }
+
+    .slide::before {
+      content: '';
+      position: absolute;
+      top: 0; left: 0; right: 0;
+      height: 3px;
+      background: linear-gradient(90deg, #C8102E 0%, #C8102E 30%, transparent 100%);
+    }
+
+    /* ── Slide number ───────────────────────────────────── */
+    .slide-number {
+      position: absolute;
+      top: 20px;
+      right: 64px;
+      font-size: 0.7rem;
+      font-weight: 500;
+      letter-spacing: 0.1em;
+      color: rgba(255,255,255,0.25);
+      text-transform: uppercase;
+    }
+
+    .slide-number span {
+      color: #C8102E;
+      font-weight: 700;
+    }
+
+    /* ── Typography ─────────────────────────────────────── */
+    .slide-title {
+      font-size: 2.4rem;
+      font-weight: 900;
+      letter-spacing: -0.03em;
+      line-height: 1.1;
+      margin-bottom: 6px;
+    }
+
+    .slide-subtitle {
+      font-size: 0.85rem;
+      font-weight: 400;
+      color: rgba(255,255,255,0.45);
+      letter-spacing: 0.05em;
+      text-transform: uppercase;
+      margin-bottom: 36px;
+    }
+
+    .section-label {
+      font-size: 0.65rem;
+      font-weight: 600;
+      letter-spacing: 0.12em;
+      text-transform: uppercase;
+      color: #C8102E;
+      margin-bottom: 12px;
+    }
+
+    h3 {
+      font-size: 1.1rem;
+      font-weight: 700;
+      margin-bottom: 8px;
+      letter-spacing: -0.01em;
+    }
+
+    p, li {
+      font-size: 0.82rem;
+      line-height: 1.7;
+      color: rgba(255,255,255,0.75);
+    }
+
+    li {
+      margin-bottom: 4px;
+      padding-left: 4px;
+    }
+
+    ul {
+      list-style: none;
+      padding-left: 0;
+    }
+
+    ul li::before {
+      content: '→';
+      color: #C8102E;
+      font-weight: 700;
+      margin-right: 8px;
+    }
+
+    strong {
+      color: #FFFFFF;
+      font-weight: 600;
+    }
+
+    code {
+      font-family: 'JetBrains Mono', 'Fira Code', monospace;
+      background: rgba(255,255,255,0.06);
+      border: 1px solid rgba(255,255,255,0.08);
+      padding: 1px 6px;
+      border-radius: 4px;
+      font-size: 0.78rem;
+      color: #E8B4B8;
+    }
+
+    /* ── Layout helpers ─────────────────────────────────── */
+    .two-col {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 48px;
+      align-items: start;
+    }
+
+    .three-col {
+      display: grid;
+      grid-template-columns: 1fr 1fr 1fr;
+      gap: 32px;
+      align-items: start;
+    }
+
+    .col {
+      display: flex;
+      flex-direction: column;
+      gap: 18px;
+    }
+
+    /* ── Color swatch ───────────────────────────────────── */
+    .swatch-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fill, minmax(160px, 1fr));
+      gap: 12px;
+    }
+
+    .swatch {
+      border-radius: 10px;
+      overflow: hidden;
+      border: 1px solid rgba(255,255,255,0.06);
+    }
+
+    .swatch-color {
+      height: 56px;
+      display: flex;
+      align-items: flex-end;
+      padding: 6px 10px;
+    }
+
+    .swatch-info {
+      padding: 8px 10px;
+      background: rgba(255,255,255,0.03);
+    }
+
+    .swatch-name {
+      font-size: 0.72rem;
+      font-weight: 600;
+      margin-bottom: 2px;
+    }
+
+    .swatch-value {
+      font-size: 0.65rem;
+      color: rgba(255,255,255,0.4);
+      font-family: monospace;
+    }
+
+    /* ── Table ────────────────────────────────────────── */
+    table {
+      width: 100%;
+      border-collapse: collapse;
+      font-size: 0.78rem;
+    }
+
+    th {
+      text-align: left;
+      font-weight: 600;
+      font-size: 0.68rem;
+      letter-spacing: 0.08em;
+      text-transform: uppercase;
+      color: rgba(255,255,255,0.4);
+      padding: 8px 12px;
+      border-bottom: 1px solid rgba(255,255,255,0.08);
+    }
+
+    td {
+      padding: 10px 12px;
+      border-bottom: 1px solid rgba(255,255,255,0.04);
+      color: rgba(255,255,255,0.8);
+      vertical-align: top;
+    }
+
+    tr:last-child td {
+      border-bottom: none;
+    }
+
+    /* ── Screenshot image ──────────────────────────────── */
+    .screenshot {
+      width: 100%;
+      border-radius: 10px;
+      border: 1px solid rgba(255,255,255,0.08);
+      object-fit: cover;
+    }
+
+    .screenshot-caption {
+      font-size: 0.65rem;
+      color: rgba(255,255,255,0.35);
+      text-align: center;
+      margin-top: 6px;
+      font-style: italic;
+    }
+
+    /* ── Info card ──────────────────────────────────────── */
+    .info-card {
+      background: rgba(255,255,255,0.03);
+      border: 1px solid rgba(255,255,255,0.06);
+      border-radius: 10px;
+      padding: 18px 20px;
+    }
+
+    .info-card h3 {
+      font-size: 0.9rem;
+    }
+
+    /* ── Tag ────────────────────────────────────────────── */
+    .tag {
+      display: inline-block;
+      font-size: 0.62rem;
+      font-weight: 600;
+      letter-spacing: 0.06em;
+      text-transform: uppercase;
+      padding: 3px 10px;
+      border-radius: 100px;
+      background: rgba(200, 16, 46, 0.15);
+      color: #C8102E;
+      border: 1px solid rgba(200, 16, 46, 0.25);
+      margin-right: 6px;
+      margin-bottom: 4px;
+    }
+
+    /* ── Cover slide ───────────────────────────────────── */
+    .cover {
+      justify-content: center;
+      align-items: center;
+      text-align: center;
+      background: radial-gradient(ellipse at 50% 40%, rgba(200,16,46,0.08) 0%, transparent 65%),
+                  #0B0B0D;
+    }
+
+    .cover .slide-title {
+      font-size: 3.5rem;
+      margin-bottom: 10px;
+    }
+
+    .cover-label {
+      font-family: 'Crimson Pro', serif;
+      font-style: italic;
+      font-size: 1.1rem;
+      color: rgba(255,255,255,0.5);
+      margin-bottom: 24px;
+    }
+
+    .cover-meta {
+      font-size: 0.75rem;
+      color: rgba(255,255,255,0.3);
+      margin-top: 48px;
+    }
+
+    /* ── Font specimen ──────────────────────────────────── */
+    .specimen {
+      padding: 24px;
+      background: rgba(255,255,255,0.02);
+      border: 1px solid rgba(255,255,255,0.06);
+      border-radius: 12px;
+    }
+
+    .specimen-sample {
+      font-size: 2rem;
+      font-weight: 700;
+      line-height: 1.2;
+      margin-bottom: 12px;
+    }
+
+    .specimen-name {
+      font-size: 0.7rem;
+      text-transform: uppercase;
+      letter-spacing: 0.1em;
+      color: rgba(255,255,255,0.4);
+      margin-bottom: 4px;
+    }
+
+    .specimen-weights {
+      font-size: 0.72rem;
+      color: rgba(255,255,255,0.5);
+    }
+
+    /* ── Divider ────────────────────────────────────────── */
+    hr {
+      border: none;
+      height: 1px;
+      background: rgba(255,255,255,0.06);
+      margin: 20px 0;
+    }
+
+    /* ── Architecture diagram ──────────────────────────── */
+    .arch-box {
+      background: rgba(255,255,255,0.03);
+      border: 1px solid rgba(255,255,255,0.08);
+      border-radius: 8px;
+      padding: 14px 16px;
+      text-align: center;
+    }
+
+    .arch-box .arch-label {
+      font-size: 0.68rem;
+      font-weight: 600;
+      letter-spacing: 0.06em;
+      text-transform: uppercase;
+      margin-bottom: 4px;
+    }
+
+    .arch-box .arch-file {
+      font-size: 0.72rem;
+      color: rgba(255,255,255,0.5);
+      font-family: monospace;
+    }
+
+    .arch-arrow {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 1.2rem;
+      color: rgba(255,255,255,0.2);
+    }
+
+    .arch-flow {
+      display: grid;
+      grid-template-columns: 1fr auto 1fr auto 1fr;
+      gap: 12px;
+      align-items: center;
+    }
+  </style>
+</head>
+<body>
+
+  <!-- ═══════════════════════════════════════════════════
+       SLIDE 1 — COVER
+       ═══════════════════════════════════════════════════ -->
+  <div class="slide cover">
+    <p class="cover-label">Frontend Technical Presentation</p>
+    <h1 class="slide-title">Maya — Product Designer</h1>
+    <p class="slide-subtitle" style="margin-bottom: 0;">Cinematic Portfolio Website · Interface & Technical Breakdown</p>
+    <p class="cover-meta">HTML5 · Vanilla CSS · JavaScript ES6+ · Three.js · GSAP ScrollTrigger · Custom GLSL Shaders</p>
+  </div>
+
+  <!-- ═══════════════════════════════════════════════════
+       SLIDE 2 — INTERFACE OVERVIEW
+       ═══════════════════════════════════════════════════ -->
+  <div class="slide">
+    <div class="slide-number"><span>02</span> / 10</div>
+    <h2 class="slide-title">Interface Overview</h2>
+    <p class="slide-subtitle">Section-by-section layout architecture</p>
+
+    <div class="two-col">
+      <div class="col">
+        <div class="info-card">
+          <p class="section-label">① Loading Screen</p>
+          <h3>Preload Experience</h3>
+          <p>Full-viewport overlay with centered progress bar. Tracks 190-frame image sequence load. Fades out with <code>opacity 0.6s ease-out-expo</code> transition on completion.</p>
+        </div>
+        <div class="info-card">
+          <p class="section-label">② Hero Section</p>
+          <h3>Scrollytelling Canvas</h3>
+          <p>Full-viewport <code>&lt;canvas&gt;</code> with WebGL shader rendering. Text overlay anchored to viewport bottom via <code>justify-content: flex-end</code>. Pinned for 1.5× viewport scroll using GSAP ScrollTrigger. Text fades out at 60% scroll progress.</p>
+        </div>
+        <div class="info-card">
+          <p class="section-label">③ Fixed Header</p>
+          <h3>Minimal Navigation</h3>
+          <p>72px height, fixed positioning, <code>mix-blend-mode: difference</code> for text legibility over any background. Logo left, "Work" link + "Get in touch" pill button right.</p>
+        </div>
+      </div>
+      <div class="col">
+        <div class="info-card">
+          <p class="section-label">④ Selected Work</p>
+          <h3>2-Column Project Grid</h3>
+          <p>CSS Grid <code>repeat(2, 1fr)</code> with 1.5rem gap. 4 project cards with hover image zoom <code>scale(1.08)</code>. Cards animate in with GSAP stagger (0.15s delay).</p>
+        </div>
+        <div class="info-card">
+          <p class="section-label">⑤ Footer</p>
+          <h3>CTA & Contact</h3>
+          <p>Headline tagline "Let's create something extraordinary." with <code>clamp(1.5rem, 3.5vw, 2.8rem)</code> fluid sizing. Accent-colored email link. Social links row with divider border.</p>
+        </div>
+        <div style="margin-top: 8px;">
+          <p class="section-label">Layout System</p>
+          <ul>
+            <li><strong>Max Width:</strong> 1440px centered container</li>
+            <li><strong>Gutter:</strong> <code>clamp(1rem, 3vw, 2.5rem)</code></li>
+            <li><strong>Box Model:</strong> <code>box-sizing: border-box</code> global reset</li>
+            <li><strong>Overflow:</strong> <code>overflow-x: hidden</code> on body</li>
+          </ul>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- ═══════════════════════════════════════════════════
+       SLIDE 3 — HERO SECTION SCREENSHOT
+       ═══════════════════════════════════════════════════ -->
+  <div class="slide">
+    <div class="slide-number"><span>03</span> / 10</div>
+    <h2 class="slide-title">Hero Section</h2>
+    <p class="slide-subtitle">Full-viewport cinematic canvas with grounded editorial typography</p>
+
+    <img src="assets/images/screenshot-hero.png" alt="Hero Section" class="screenshot" style="max-height: 55vh; object-fit: contain; margin: 0 auto;">
+    <p class="screenshot-caption">Hero section — "Hey, I'm a" (Crimson Pro Italic) + "PRODUCT DESIGNER" (Inter 900) + Services grid with accent markers</p>
+
+    <div style="display: grid; grid-template-columns: repeat(4, 1fr); gap: 16px; margin-top: 20px;">
+      <div class="info-card" style="padding: 12px 14px;">
+        <p class="section-label" style="margin-bottom: 4px;">Canvas</p>
+        <p style="font-size: 0.75rem;">100vw × 100vh<br>WebGL renderer</p>
+      </div>
+      <div class="info-card" style="padding: 12px 14px;">
+        <p class="section-label" style="margin-bottom: 4px;">Pin Duration</p>
+        <p style="font-size: 0.75rem;">end: +=150%<br>(1.5× viewport)</p>
+      </div>
+      <div class="info-card" style="padding: 12px 14px;">
+        <p class="section-label" style="margin-bottom: 4px;">Text Fade</p>
+        <p style="font-size: 0.75rem;">Overlay → 0 opacity<br>at 60% scroll</p>
+      </div>
+      <div class="info-card" style="padding: 12px 14px;">
+        <p class="section-label" style="margin-bottom: 4px;">Entrance</p>
+        <p style="font-size: 0.75rem;">fadeUp keyframe<br>0.3s–0.7s stagger</p>
+      </div>
+    </div>
+  </div>
+
+  <!-- ═══════════════════════════════════════════════════
+       SLIDE 4 — WORK GRID SCREENSHOTS
+       ═══════════════════════════════════════════════════ -->
+  <div class="slide">
+    <div class="slide-number"><span>04</span> / 10</div>
+    <h2 class="slide-title">Selected Work & Footer</h2>
+    <p class="slide-subtitle">2-column project grid with hover interactions + editorial footer</p>
+
+    <div class="two-col" style="gap: 24px;">
+      <div>
+        <img src="assets/images/screenshot-grid.png" alt="Work Grid" class="screenshot" style="max-height: 42vh; object-fit: contain;">
+        <p class="screenshot-caption">Project grid — Transcendence, Notice Everything, Saint Petersburg, Bridging the Gap</p>
+      </div>
+      <div>
+        <img src="assets/images/screenshot-footer.png" alt="Footer" class="screenshot" style="max-height: 42vh; object-fit: contain;">
+        <p class="screenshot-caption">Footer CTA tagline + accent email + social links bar</p>
+      </div>
+    </div>
+
+    <div style="display: grid; grid-template-columns: repeat(3, 1fr); gap: 16px; margin-top: 24px;">
+      <div class="info-card" style="padding: 12px 14px;">
+        <p class="section-label" style="margin-bottom: 4px;">Image Hover</p>
+        <p style="font-size: 0.75rem;"><code>scale(1.08)</code> on image only, 0.8s ease-out-expo. Container clips overflow.</p>
+      </div>
+      <div class="info-card" style="padding: 12px 14px;">
+        <p class="section-label" style="margin-bottom: 4px;">Arrow Button</p>
+        <p style="font-size: 0.75rem;">36×36px circle → fills <code>#C8102E</code> + rotates −45° on card hover.</p>
+      </div>
+      <div class="info-card" style="padding: 12px 14px;">
+        <p class="section-label" style="margin-bottom: 4px;">Card Border</p>
+        <p style="font-size: 0.75rem;">1px <code>rgba(255,255,255,0.06)</code> → <code>0.12</code> on hover. 16px radius.</p>
+      </div>
+    </div>
+  </div>
+
+  <!-- ═══════════════════════════════════════════════════
+       SLIDE 5 — TYPOGRAPHY
+       ═══════════════════════════════════════════════════ -->
+  <div class="slide">
+    <div class="slide-number"><span>05</span> / 10</div>
+    <h2 class="slide-title">Typography System</h2>
+    <p class="slide-subtitle">Two-font pairing — functional sans + editorial serif</p>
+
+    <div class="two-col" style="margin-bottom: 28px;">
+      <div class="specimen">
+        <p class="specimen-name">Primary — UI Font</p>
+        <p class="specimen-sample" style="font-family: 'Inter', sans-serif;">Inter</p>
+        <p class="specimen-weights">Weights loaded: 300 · 400 · 500 · 600 · 700 · 800 · <strong>900</strong></p>
+        <p style="font-size: 0.72rem; color: rgba(255,255,255,0.4); margin-top: 4px;">Usage: All UI text, headings, navigation, body copy</p>
+      </div>
+      <div class="specimen">
+        <p class="specimen-name">Accent — Serif</p>
+        <p class="specimen-sample" style="font-family: 'Crimson Pro', serif; font-style: italic; font-weight: 400;"><em>Crimson Pro</em></p>
+        <p class="specimen-weights">Weights loaded: 400 Italic · 600 Italic</p>
+        <p style="font-size: 0.72rem; color: rgba(255,255,255,0.4); margin-top: 4px;">Usage: Hero subtitle "Hey, I'm a" — always italic</p>
+      </div>
+    </div>
+
+    <p class="section-label">Complete Font Size Scale</p>
+    <table>
+      <thead>
+        <tr>
+          <th>Element</th>
+          <th>Font Family</th>
+          <th>Size</th>
+          <th>Weight</th>
+          <th>Letter Spacing</th>
+          <th>Line Height</th>
+          <th>Extras</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr>
+          <td><strong>Hero Title</strong></td>
+          <td>Inter</td>
+          <td><code>clamp(2.8rem, 8vw, 7.5rem)</code></td>
+          <td>900</td>
+          <td>-0.04em</td>
+          <td>0.95</td>
+          <td>uppercase</td>
+        </tr>
+        <tr>
+          <td><strong>Hero Subtitle</strong></td>
+          <td>Crimson Pro</td>
+          <td><code>clamp(1rem, 2vw, 1.5rem)</code></td>
+          <td>400 italic</td>
+          <td>normal</td>
+          <td>1.2</td>
+          <td>—</td>
+        </tr>
+        <tr>
+          <td><strong>Section Title</strong></td>
+          <td>Inter</td>
+          <td><code>clamp(1.8rem, 4vw, 3rem)</code></td>
+          <td>800</td>
+          <td>-0.03em</td>
+          <td>default</td>
+          <td>—</td>
+        </tr>
+        <tr>
+          <td><strong>Footer Tagline</strong></td>
+          <td>Inter</td>
+          <td><code>clamp(1.5rem, 3.5vw, 2.8rem)</code></td>
+          <td>800</td>
+          <td>-0.03em</td>
+          <td>1.15</td>
+          <td>max-width: 600px</td>
+        </tr>
+        <tr>
+          <td><strong>Card Title</strong></td>
+          <td>Inter</td>
+          <td><code>clamp(1rem, 1.8vw, 1.35rem)</code></td>
+          <td>700</td>
+          <td>-0.02em</td>
+          <td>1.3</td>
+          <td>—</td>
+        </tr>
+        <tr>
+          <td><strong>Logo</strong></td>
+          <td>Inter</td>
+          <td><code>1.25rem</code> (20px)</td>
+          <td>700</td>
+          <td>-0.02em</td>
+          <td>default</td>
+          <td>—</td>
+        </tr>
+        <tr>
+          <td><strong>Nav Links</strong></td>
+          <td>Inter</td>
+          <td><code>0.85rem</code> (13.6px)</td>
+          <td>500</td>
+          <td>0.02em</td>
+          <td>default</td>
+          <td>—</td>
+        </tr>
+        <tr>
+          <td><strong>Service Items</strong></td>
+          <td>Inter</td>
+          <td><code>0.8rem</code> (12.8px)</td>
+          <td>400</td>
+          <td>0.02em</td>
+          <td>default</td>
+          <td>nowrap</td>
+        </tr>
+        <tr>
+          <td><strong>Card Category</strong></td>
+          <td>Inter</td>
+          <td><code>0.75rem</code> (12px)</td>
+          <td>400</td>
+          <td>0.04em</td>
+          <td>default</td>
+          <td>uppercase</td>
+        </tr>
+        <tr>
+          <td><strong>Loader Text</strong></td>
+          <td>Inter</td>
+          <td><code>0.75rem</code> (12px)</td>
+          <td>400</td>
+          <td>0.15em</td>
+          <td>default</td>
+          <td>uppercase</td>
+        </tr>
+        <tr>
+          <td><strong>Footer / Socials</strong></td>
+          <td>Inter</td>
+          <td><code>0.8rem</code> (12.8px)</td>
+          <td>400</td>
+          <td>normal</td>
+          <td>default</td>
+          <td>—</td>
+        </tr>
+      </tbody>
+    </table>
+  </div>
+
+  <!-- ═══════════════════════════════════════════════════
+       SLIDE 6 — COLOR THEME
+       ═══════════════════════════════════════════════════ -->
+  <div class="slide">
+    <div class="slide-number"><span>06</span> / 10</div>
+    <h2 class="slide-title">Color Theme</h2>
+    <p class="slide-subtitle">Dark Mode Editorial — CSS Custom Properties (Design Tokens)</p>
+
+    <p class="section-label">Core Palette</p>
+    <div class="swatch-grid" style="margin-bottom: 28px;">
+      <div class="swatch">
+        <div class="swatch-color" style="background: #0B0B0D;"></div>
+        <div class="swatch-info"><p class="swatch-name">Background</p><p class="swatch-value">--bg: #0B0B0D</p></div>
+      </div>
+      <div class="swatch">
+        <div class="swatch-color" style="background: #111114;"></div>
+        <div class="swatch-info"><p class="swatch-name">Elevated</p><p class="swatch-value">--bg-elevated: #111114</p></div>
+      </div>
+      <div class="swatch">
+        <div class="swatch-color" style="background: #151518;"></div>
+        <div class="swatch-info"><p class="swatch-name">Card</p><p class="swatch-value">--bg-card: #151518</p></div>
+      </div>
+      <div class="swatch">
+        <div class="swatch-color" style="background: #1A1A1F;"></div>
+        <div class="swatch-info"><p class="swatch-name">Surface</p><p class="swatch-value">--surface: #1A1A1F</p></div>
+      </div>
+      <div class="swatch">
+        <div class="swatch-color" style="background: #C8102E;"></div>
+        <div class="swatch-info"><p class="swatch-name">Accent</p><p class="swatch-value">--accent: #C8102E</p></div>
+      </div>
+      <div class="swatch">
+        <div class="swatch-color" style="background: #FFFFFF;"></div>
+        <div class="swatch-info"><p class="swatch-name">Primary Text</p><p class="swatch-value">--text-primary: #FFFFFF</p></div>
+      </div>
+    </div>
+
+    <p class="section-label">Alpha / Opacity Values</p>
+    <table>
+      <thead>
+        <tr>
+          <th>Token</th>
+          <th>Value</th>
+          <th>Usage</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr>
+          <td><code>--text-secondary</code></td>
+          <td><code>rgba(255, 255, 255, 0.55)</code></td>
+          <td>Subtitle text, nav links, service items, card categories</td>
+        </tr>
+        <tr>
+          <td><code>--text-tertiary</code></td>
+          <td><code>rgba(255, 255, 255, 0.3)</code></td>
+          <td>Work count "(04)", footer copyright</td>
+        </tr>
+        <tr>
+          <td><code>--border</code></td>
+          <td><code>rgba(255, 255, 255, 0.06)</code></td>
+          <td>Card borders, footer divider, arrow button</td>
+        </tr>
+        <tr>
+          <td><code>--border-hover</code></td>
+          <td><code>rgba(255, 255, 255, 0.12)</code></td>
+          <td>Card hover state, pill button border</td>
+        </tr>
+        <tr>
+          <td><code>--accent-glow</code></td>
+          <td><code>rgba(200, 16, 46, 0.25)</code></td>
+          <td>Reserved for accent highlights / glows</td>
+        </tr>
+      </tbody>
+    </table>
+
+    <div style="margin-top: 20px;">
+      <p class="section-label">Additional Rendering</p>
+      <ul>
+        <li><strong>Font Smoothing:</strong> <code>-webkit-font-smoothing: antialiased</code> + <code>-moz-osx-font-smoothing: grayscale</code></li>
+        <li><strong>WebGL Clear Color:</strong> <code>0x0B0B0D</code> — matches CSS background seamlessly</li>
+        <li><strong>Header Blend:</strong> <code>mix-blend-mode: difference</code> — ensures text always visible over canvas</li>
+      </ul>
+    </div>
+  </div>
+
+  <!-- ═══════════════════════════════════════════════════
+       SLIDE 7 — IMAGE FRAMES & ASPECT RATIOS
+       ═══════════════════════════════════════════════════ -->
+  <div class="slide">
+    <div class="slide-number"><span>07</span> / 10</div>
+    <h2 class="slide-title">Image Frames & Aspect Ratios</h2>
+    <p class="slide-subtitle">All image dimensions, formats, and rendering methods</p>
+
+    <div class="two-col">
+      <div class="col">
+        <div class="info-card">
+          <p class="section-label">Hero Sequence Frames</p>
+          <h3>190 JPG Frames — Mouth Tunnel</h3>
+          <table style="margin-top: 8px;">
+            <tr><td><strong>Total Frames</strong></td><td>190</td></tr>
+            <tr><td><strong>Format</strong></td><td>JPEG (.jpg)</td></tr>
+            <tr><td><strong>Naming</strong></td><td><code>ezgif-frame-001.jpg</code> → <code>ezgif-frame-190.jpg</code></td></tr>
+            <tr><td><strong>Path</strong></td><td><code>./Model image/</code></td></tr>
+            <tr><td><strong>Zero Padding</strong></td><td>3 digits</td></tr>
+            <tr><td><strong>Display Size</strong></td><td>100vw × 100vh (fullscreen canvas)</td></tr>
+            <tr><td><strong>Rendering</strong></td><td>WebGL Texture on PlaneGeometry(2, 2)</td></tr>
+            <tr><td><strong>Texture Filter</strong></td><td><code>THREE.LinearFilter</code> (min + mag)</td></tr>
+            <tr><td><strong>Pixel Ratio</strong></td><td><code>Math.min(devicePixelRatio, 2)</code></td></tr>
+          </table>
+        </div>
+
+        <div class="info-card">
+          <p class="section-label">Texture Memory</p>
+          <h3>LRU Cache Strategy</h3>
+          <ul>
+            <li><strong>Cache Size:</strong> 40 textures max in GPU memory</li>
+            <li><strong>Eviction:</strong> Oldest texture disposed on overflow</li>
+            <li><strong>Preload:</strong> All 190 frames as HTMLImageElement</li>
+            <li><strong>Fallback:</strong> 4×4px <code>#0B0B0D</code> canvas texture</li>
+          </ul>
+        </div>
+      </div>
+      <div class="col">
+        <div class="info-card">
+          <p class="section-label">Project Card Images</p>
+          <h3>4 Project Thumbnails</h3>
+          <table style="margin-top: 8px;">
+            <tr><td><strong>Aspect Ratio</strong></td><td><code>4 : 3</code> (CSS <code>aspect-ratio: 4/3</code>)</td></tr>
+            <tr><td><strong>Object Fit</strong></td><td><code>object-fit: cover</code></td></tr>
+            <tr><td><strong>Format</strong></td><td>PNG</td></tr>
+            <tr><td><strong>Loading</strong></td><td><code>loading="lazy"</code></td></tr>
+            <tr><td><strong>Container</strong></td><td><code>overflow: hidden</code> (clips zoom)</td></tr>
+            <tr><td><strong>Hover Scale</strong></td><td><code>transform: scale(1.08)</code></td></tr>
+            <tr><td><strong>Transition</strong></td><td><code>0.8s cubic-bezier(0.16, 1, 0.3, 1)</code></td></tr>
+            <tr><td><strong>GPU Hint</strong></td><td><code>will-change: transform</code></td></tr>
+          </table>
+        </div>
+
+        <div class="info-card">
+          <p class="section-label">Project Image Paths</p>
+          <h3>File Structure</h3>
+          <ul style="font-family: monospace; font-size: 0.72rem;">
+            <li>assets/images/transcendence.png</li>
+            <li>assets/images/notice-everything.png</li>
+            <li>assets/images/saint-petersburg.png</li>
+            <li>assets/images/bridging-the-gap.png</li>
+          </ul>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- ═══════════════════════════════════════════════════
+       SLIDE 8 — WebGL & SHADER DETAILS
+       ═══════════════════════════════════════════════════ -->
+  <div class="slide">
+    <div class="slide-number"><span>08</span> / 10</div>
+    <h2 class="slide-title">WebGL & GLSL Shader Pipeline</h2>
+    <p class="slide-subtitle">Custom shader for the cinematic tunnel zoom effect</p>
+
+    <div class="two-col">
+      <div class="col">
+        <div class="info-card">
+          <p class="section-label">Three.js Configuration</p>
+          <h3>Renderer & Scene</h3>
+          <table style="margin-top: 8px;">
+            <tr><td><strong>Renderer</strong></td><td>THREE.WebGLRenderer</td></tr>
+            <tr><td><strong>Library</strong></td><td>Three.js r128 (CDN)</td></tr>
+            <tr><td><strong>Antialias</strong></td><td>false (performance)</td></tr>
+            <tr><td><strong>Alpha Channel</strong></td><td>false</td></tr>
+            <tr><td><strong>Power Pref</strong></td><td><code>high-performance</code></td></tr>
+            <tr><td><strong>Camera</strong></td><td>OrthographicCamera(−1, 1, 1, −1, 0, 1)</td></tr>
+            <tr><td><strong>Geometry</strong></td><td>PlaneGeometry(2, 2) fullscreen quad</td></tr>
+            <tr><td><strong>Material</strong></td><td>ShaderMaterial (custom GLSL)</td></tr>
+            <tr><td><strong>Depth Test</strong></td><td>false</td></tr>
+          </table>
+        </div>
+
+        <div class="info-card">
+          <p class="section-label">Shader Uniforms</p>
+          <table style="margin-top: 8px;">
+            <tr><td><code>uTexture</code></td><td>sampler2D — current frame</td></tr>
+            <tr><td><code>uProgress</code></td><td>float 0→1 — scroll progress</td></tr>
+            <tr><td><code>uDistortion</code></td><td>float — base strength (0.12)</td></tr>
+            <tr><td><code>uResolution</code></td><td>vec2 — viewport width/height</td></tr>
+          </table>
+        </div>
+      </div>
+      <div class="col">
+        <div class="info-card">
+          <p class="section-label">Fragment Shader Effects</p>
+          <h3>4-Layer Post-Processing Stack</h3>
+          <div style="margin-top: 12px;">
+            <p class="section-label" style="color: rgba(255,255,255,0.5);">Layer 1</p>
+            <h3 style="font-size: 0.85rem;">Barrel Distortion</h3>
+            <p>Center-out lens distortion focal at <code>vec2(0.5, 0.51)</code> (model's face). Two-coefficient model: <code>k1 = strength</code>, <code>k2 = strength × 0.35</code>. Dynamic ramp: <code>0.15 + progress × 0.85</code>.</p>
+            <hr>
+            <p class="section-label" style="color: rgba(255,255,255,0.5);">Layer 2</p>
+            <h3 style="font-size: 0.85rem;">Chromatic Aberration</h3>
+            <p>RGB channel split: R at <code>spread × 1.02</code>, G at <code>1.00</code>, B at <code>0.98</code>. Subtle prismatic fringing that intensifies with scroll.</p>
+            <hr>
+            <p class="section-label" style="color: rgba(255,255,255,0.5);">Layer 3</p>
+            <h3 style="font-size: 0.85rem;">Vignette</h3>
+            <p>Parabolic mask: <code>uv × (1 − uv) × 16</code>. Power curve softens with progress: <code>pow(vig, 0.18 + progress × 0.08)</code>. Edge darken mix: 0.82 → 1.0.</p>
+            <hr>
+            <p class="section-label" style="color: rgba(255,255,255,0.5);">Layer 4</p>
+            <h3 style="font-size: 0.85rem;">Film Grain</h3>
+            <p>GLSL noise: <code>fract(sin(dot(uv, vec2(12.9898, 78.233))) × 43758.5453)</code>. Intensity: ±0.03 (very subtle).</p>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- ═══════════════════════════════════════════════════
+       SLIDE 9 — ANIMATION & MOTION
+       ═══════════════════════════════════════════════════ -->
+  <div class="slide">
+    <div class="slide-number"><span>09</span> / 10</div>
+    <h2 class="slide-title">Animation & Motion Design</h2>
+    <p class="slide-subtitle">GSAP ScrollTrigger + CSS keyframes + custom easing curves</p>
+
+    <div class="two-col">
+      <div class="col">
+        <div class="info-card">
+          <p class="section-label">GSAP ScrollTrigger Instances</p>
+          <table style="margin-top: 8px;">
+            <thead>
+              <tr><th>Target</th><th>Action</th><th>Trigger / Range</th></tr>
+            </thead>
+            <tbody>
+              <tr>
+                <td><strong>Hero Pin</strong></td>
+                <td>Pin + scrub frame sequence</td>
+                <td><code>top top → +=150%</code><br>scrub: 0.6s lag</td>
+              </tr>
+              <tr>
+                <td><strong>Hero Text</strong></td>
+                <td>Fade opacity → 0</td>
+                <td><code>top top → +=60%</code><br>scrub: true</td>
+              </tr>
+              <tr>
+                <td><strong>Work Header</strong></td>
+                <td>y: 60 → 0, opacity: 0 → 1</td>
+                <td><code>top 85%</code><br>duration: 1s</td>
+              </tr>
+              <tr>
+                <td><strong>Project Cards</strong></td>
+                <td>y: 80 → 0, opacity: 0 → 1</td>
+                <td><code>top 85%</code><br>stagger: 0.15s, dur: 0.9s</td>
+              </tr>
+              <tr>
+                <td><strong>Footer</strong></td>
+                <td>y: 40 → 0, opacity: 0 → 1</td>
+                <td><code>top 90%</code><br>duration: 0.8s</td>
+              </tr>
+            </tbody>
+          </table>
+        </div>
+
+        <div class="info-card">
+          <p class="section-label">GSAP Library</p>
+          <ul>
+            <li><strong>Version:</strong> GSAP 3.12.5 (CDN)</li>
+            <li><strong>Plugins:</strong> ScrollTrigger</li>
+            <li><strong>Default Ease:</strong> <code>power3.out</code></li>
+          </ul>
+        </div>
+      </div>
+      <div class="col">
+        <div class="info-card">
+          <p class="section-label">CSS Easing Curves</p>
+          <table style="margin-top: 8px;">
+            <tr>
+              <td><code>--ease-out-expo</code></td>
+              <td><code>cubic-bezier(0.16, 1, 0.3, 1)</code></td>
+            </tr>
+            <tr>
+              <td><code>--ease-out-quart</code></td>
+              <td><code>cubic-bezier(0.25, 1, 0.5, 1)</code></td>
+            </tr>
+          </table>
+        </div>
+
+        <div class="info-card">
+          <p class="section-label">CSS Transition Durations</p>
+          <table style="margin-top: 8px;">
+            <tr><td><code>--duration-fast</code></td><td>0.2s</td><td>Hover states, opacity</td></tr>
+            <tr><td><code>--duration-med</code></td><td>0.45s</td><td>Border, background, pill button</td></tr>
+            <tr><td><code>--duration-slow</code></td><td>0.8s</td><td>Image hover zoom</td></tr>
+          </table>
+        </div>
+
+        <div class="info-card">
+          <p class="section-label">CSS @keyframes</p>
+          <h3>fadeUp</h3>
+          <p>Used on hero subtitle, title, and services grid for staggered entrance animation:</p>
+          <p style="font-family: monospace; font-size: 0.72rem; margin-top: 6px; color: #E8B4B8;">
+            from: opacity: 0, translateY(20–30px)<br>
+            to: opacity: 1, translateY(0)<br><br>
+            Delays: subtitle 0.3s, title 0.5s, services 0.7s
+          </p>
+        </div>
+
+        <div class="info-card">
+          <p class="section-label">Render Loop</p>
+          <p><code>requestAnimationFrame</code> — continuous loop updating shader uniforms (<code>uTexture</code>, <code>uProgress</code>) on every frame. Only renders after all images are preloaded.</p>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- ═══════════════════════════════════════════════════
+       SLIDE 10 — RESPONSIVE & ARCHITECTURE
+       ═══════════════════════════════════════════════════ -->
+  <div class="slide">
+    <div class="slide-number"><span>10</span> / 10</div>
+    <h2 class="slide-title">Responsive Design & Architecture</h2>
+    <p class="slide-subtitle">Breakpoints, file structure, and technology stack summary</p>
+
+    <div class="two-col">
+      <div class="col">
+        <div class="info-card">
+          <p class="section-label">Responsive Breakpoints</p>
+          <table style="margin-top: 8px;">
+            <thead>
+              <tr><th>Breakpoint</th><th>Adaptation</th></tr>
+            </thead>
+            <tbody>
+              <tr>
+                <td><strong>≤ 900px</strong></td>
+                <td>Hero content stacks vertically. Work grid → single column. Footer stacks.</td>
+              </tr>
+              <tr>
+                <td><strong>≤ 600px</strong></td>
+                <td>Header shrinks to 56px. "Work" nav link hidden. Services grid → single column. Reduced font sizes.</td>
+              </tr>
+              <tr>
+                <td><strong>All sizes</strong></td>
+                <td>Fluid typography with <code>clamp()</code>. Fluid gutter with <code>clamp(1rem, 3vw, 2.5rem)</code>.</td>
+              </tr>
+            </tbody>
+          </table>
+        </div>
+
+        <div class="info-card">
+          <p class="section-label">Border Radius System</p>
+          <table style="margin-top: 8px;">
+            <tr><td><code>--radius-sm</code></td><td>6px</td><td>Loader bar, small elements</td></tr>
+            <tr><td><code>--radius-md</code></td><td>10px</td><td>General cards</td></tr>
+            <tr><td><code>--radius-lg</code></td><td>16px</td><td>Project cards</td></tr>
+            <tr><td><code>--radius-pill</code></td><td>100px</td><td>"Get in touch" button</td></tr>
+          </table>
+        </div>
+
+        <div class="info-card">
+          <p class="section-label">Spacing Scale (rem)</p>
+          <p style="font-family: monospace; font-size: 0.72rem; line-height: 2;">
+            <span class="tag">xs 0.25</span>
+            <span class="tag">sm 0.5</span>
+            <span class="tag">md 1.0</span>
+            <span class="tag">lg 1.5</span>
+            <span class="tag">xl 2.5</span>
+            <span class="tag">2xl 4.0</span>
+            <span class="tag">3xl 6.0</span>
+          </p>
+        </div>
+      </div>
+      <div class="col">
+        <div class="info-card">
+          <p class="section-label">File Architecture</p>
+          <table style="margin-top: 8px;">
+            <thead>
+              <tr><th>File</th><th>Purpose</th><th>Lines</th></tr>
+            </thead>
+            <tbody>
+              <tr><td><code>index.html</code></td><td>Semantic HTML5 markup + CDN links</td><td>95</td></tr>
+              <tr><td><code>style.css</code></td><td>Design tokens + responsive layouts</td><td>553</td></tr>
+              <tr><td><code>main.js</code></td><td>Three.js + GSAP + work grid + loop</td><td>261</td></tr>
+              <tr><td><code>scrubEngine.js</code></td><td>Frame preloader + LRU texture cache</td><td>120</td></tr>
+              <tr><td><code>tunnelShader.js</code></td><td>Custom GLSL vertex + fragment shaders</td><td>69</td></tr>
+              <tr><td><code>serve.sh</code></td><td>Python HTTP server launcher</td><td>22</td></tr>
+            </tbody>
+          </table>
+        </div>
+
+        <div class="info-card">
+          <p class="section-label">Technology Stack</p>
+          <div style="margin-top: 8px;">
+            <span class="tag">HTML5</span>
+            <span class="tag">Vanilla CSS</span>
+            <span class="tag">JavaScript ES6+</span>
+            <span class="tag">ES Modules</span>
+            <span class="tag">Three.js r128</span>
+            <span class="tag">GSAP 3.12.5</span>
+            <span class="tag">ScrollTrigger</span>
+            <span class="tag">WebGL</span>
+            <span class="tag">Custom GLSL</span>
+            <span class="tag">Google Fonts</span>
+            <span class="tag">CSS Custom Properties</span>
+            <span class="tag">CSS Grid</span>
+            <span class="tag">Flexbox</span>
+            <span class="tag">clamp()</span>
+          </div>
+        </div>
+
+        <div class="info-card">
+          <p class="section-label">SEO & Performance</p>
+          <ul>
+            <li><strong>Meta Description:</strong> ✅ Descriptive</li>
+            <li><strong>Theme Color:</strong> <code>#0B0B0D</code></li>
+            <li><strong>Semantic HTML:</strong> header, section, footer, nav, article, h1–h3</li>
+            <li><strong>Lazy Loading:</strong> project images</li>
+            <li><strong>Font Preconnect:</strong> Google Fonts</li>
+            <li><strong>Pixel Ratio Cap:</strong> 2× max</li>
+          </ul>
+        </div>
+      </div>
+    </div>
+  </div>
+
+</body>
+</html>

@@ -1,0 +1,96 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="description" content="Travel Shutter — Travel Photographer specializing in creative direction, brand identity, editorial design, and typography. Premium portfolio showcasing selected works.">
+  <meta name="theme-color" content="#0B0B0D">
+  <title>Travel Shutter — Travel Photographer</title>
+
+  <!-- Fonts -->
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Crimson+Pro:ital,wght@0,400;0,600;1,400;1,600&family=Inter:wght@300;400;500;600;700;800;900&display=swap" rel="stylesheet">
+
+  <!-- Styles -->
+  <link rel="stylesheet" href="style.css">
+
+  <!-- Three.js -->
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/three.js/r128/three.min.js"></script>
+
+  <!-- GSAP + ScrollTrigger -->
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/gsap.min.js"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/ScrollTrigger.min.js"></script>
+</head>
+<body>
+
+  <!-- ═════ Loading Screen ═════ -->
+  <div class="loader" id="loader">
+    <span class="loader-text">Loading Experience</span>
+    <div class="loader-bar-track">
+      <div class="loader-bar-fill" id="loader-bar"></div>
+    </div>
+  </div>
+
+  <!-- ═════ Header ═════ -->
+  <header class="site-header" id="site-header">
+    <div class="header-inner">
+      <a href="/" class="logo" id="logo"><span class="logo-travel">Travel</span><span class="logo-shutter">Shutter</span></a>
+      <nav class="header-nav" id="header-nav">
+        <a href="#work" class="nav-link" id="nav-work">Work</a>
+        <a href="Maya_Portfolio_Technical_Presentation.pdf" download class="nav-link" id="nav-pdf">Download PDF</a>
+        <a href="#" class="nav-link contact-pill" id="nav-contact">Get in touch</a>
+      </nav>
+    </div>
+  </header>
+
+  <!-- ═════ Hero Section ═════ -->
+  <section class="hero" id="hero-section">
+    <canvas id="hero-canvas"></canvas>
+    <div class="hero-overlay" id="hero-overlay">
+      <div class="hero-content" id="hero-content">
+        <div class="hero-text-block">
+          <p class="hero-subtitle" id="hero-subtitle">Hey, I'm a</p>
+          <h1 class="hero-title" id="hero-title">Travel<br>Photographer</h1>
+        </div>
+        <div class="hero-services" id="hero-services">
+          <div class="service-item">Creative Direction</div>
+          <div class="service-item">Brand Identity</div>
+          <div class="service-item">Editorial Design</div>
+          <div class="service-item">Typography</div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ═════ Selected Work ═════ -->
+  <section class="work-section" id="work">
+    <div class="work-header">
+      <h2 class="section-title" id="section-title-work">Selected Work</h2>
+      <span class="work-count">(06)</span>
+    </div>
+    <div class="work-grid" id="work-grid">
+      <!-- JS-rendered project cards -->
+    </div>
+  </section>
+
+  <!-- ═════ Footer ═════ -->
+  <footer class="site-footer" id="site-footer">
+    <div class="footer-inner">
+      <p class="footer-tagline">Let's create something extraordinary.</p>
+      <a href="mailto:khushdilgoyal597@gmail.com" class="footer-email" id="footer-email">khushdilgoyal597@gmail.com</a>
+      <div class="footer-bottom">
+        <span>&copy; 2026 Travel Shutter. All rights reserved.</span>
+        <div class="footer-socials">
+          <a href="#" class="social-link" id="social-dribbble">Dribbble</a>
+          <a href="#" class="social-link" id="social-behance">Behance</a>
+          <a href="#" class="social-link" id="social-linkedin">LinkedIn</a>
+        </div>
+      </div>
+    </div>
+  </footer>
+
+  <!-- Entry point -->
+  <script type="module" src="main.js"></script>
+</body>
+</html>

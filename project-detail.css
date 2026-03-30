@@ -1,0 +1,190 @@
+/* ═══════════════════════════════════════════════════════════════
+   project-detail.css — Shared styles for individual project pages
+   ═══════════════════════════════════════════════════════════════ */
+
+/* ── Project Hero ──────────────────────────────────────────────── */
+.project-hero {
+  padding: calc(72px + var(--space-3xl)) var(--gutter) var(--space-2xl);
+  max-width: var(--max-width);
+  margin: 0 auto;
+}
+
+.project-hero-inner {
+  margin-bottom: var(--space-2xl);
+}
+
+.project-category-label {
+  font-size: 0.72rem;
+  font-weight: 600;
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+  color: var(--accent);
+  margin-bottom: var(--space-md);
+}
+
+.project-detail-title {
+  font-size: clamp(2.5rem, 7vw, 6rem);
+  font-weight: 900;
+  letter-spacing: -0.04em;
+  line-height: 0.95;
+  text-transform: uppercase;
+  margin-bottom: var(--space-lg);
+  animation: fadeUp 0.7s ease both;
+}
+
+.project-description {
+  font-size: clamp(0.95rem, 1.5vw, 1.15rem);
+  line-height: 1.7;
+  color: var(--text-secondary);
+  max-width: 600px;
+  animation: fadeUp 0.7s 0.2s ease both;
+}
+
+.project-hero-image {
+  width: 100%;
+  border-radius: var(--radius-lg);
+  overflow: hidden;
+  animation: fadeUp 0.8s 0.3s ease both;
+}
+
+.project-hero-image img {
+  width: 100%;
+  display: block;
+  object-fit: cover;
+  aspect-ratio: 16 / 9;
+}
+
+/* ── Gallery Grid ──────────────────────────────────────────────── */
+.project-gallery {
+  padding: var(--space-xl) var(--gutter) var(--space-3xl);
+  max-width: var(--max-width);
+  margin: 0 auto;
+}
+
+.gallery-grid {
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  gap: var(--space-md);
+}
+
+.gallery-item {
+  border-radius: var(--radius-md);
+  overflow: hidden;
+  position: relative;
+  background: var(--bg-card);
+  border: 1px solid var(--border);
+  transition: border-color var(--duration-med) var(--ease-out-expo),
+              transform var(--duration-slow) var(--ease-out-expo);
+}
+
+.gallery-item:hover {
+  border-color: var(--border-hover);
+  transform: translateY(-4px);
+}
+
+.gallery-wide {
+  grid-column: 1 / -1;
+}
+
+.gallery-item img {
+  width: 100%;
+  display: block;
+  object-fit: cover;
+  aspect-ratio: 4 / 3;
+  transition: transform var(--duration-slow) var(--ease-out-expo);
+}
+
+.gallery-wide img {
+  aspect-ratio: 21 / 9;
+}
+
+.gallery-item:hover img {
+  transform: scale(1.04);
+}
+
+.gallery-caption {
+  padding: var(--space-sm) var(--space-md);
+  font-size: 0.75rem;
+  color: var(--text-tertiary);
+  font-style: italic;
+  font-family: var(--font-serif);
+  background: var(--bg-card);
+}
+
+/* ── Project Navigation ────────────────────────────────────────── */
+.project-nav {
+  display: flex;
+  border-top: 1px solid var(--border);
+  max-width: var(--max-width);
+  margin: 0 auto;
+}
+
+.project-nav-link {
+  flex: 1;
+  padding: var(--space-2xl) var(--gutter);
+  text-decoration: none;
+  color: var(--text-primary);
+  transition: background var(--duration-med) var(--ease-out-expo);
+  position: relative;
+}
+
+.project-nav-link:hover {
+  background: var(--bg-elevated);
+}
+
+.project-nav-link.next {
+  text-align: right;
+  border-left: 1px solid var(--border);
+}
+
+.nav-label {
+  display: block;
+  font-size: 0.68rem;
+  font-weight: 500;
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+  color: var(--text-tertiary);
+  margin-bottom: var(--space-xs);
+}
+
+.nav-project-name {
+  font-size: clamp(1.2rem, 2.5vw, 1.8rem);
+  font-weight: 700;
+  letter-spacing: -0.02em;
+  transition: color var(--duration-fast);
+}
+
+.project-nav-link:hover .nav-project-name {
+  color: var(--accent);
+}
+
+/* ── Responsive ────────────────────────────────────────────────── */
+@media (max-width: 900px) {
+  .gallery-grid {
+    grid-template-columns: 1fr;
+  }
+
+  .gallery-wide {
+    grid-column: 1;
+  }
+
+  .gallery-wide img {
+    aspect-ratio: 16 / 9;
+  }
+}
+
+@media (max-width: 600px) {
+  .project-detail-title {
+    font-size: clamp(2rem, 10vw, 3.5rem);
+  }
+
+  .project-nav {
+    flex-direction: column;
+  }
+
+  .project-nav-link.next {
+    text-align: left;
+    border-left: none;
+    border-top: 1px solid var(--border);
+  }
+}
