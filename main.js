@@ -240,7 +240,43 @@ function initPageTransitions() {
 }
 
 /* ═══════════════════════════════════════════════════════════════
-   4.  Cleanup
+   4.  Contact Modal
+   ═══════════════════════════════════════════════════════════════ */
+
+function initContactModal() {
+  const contactBtns = document.querySelectorAll('.contact-pill, #nav-contact');
+  const modal = document.getElementById('contact-modal');
+  const closeBtn = document.getElementById('contact-modal-close');
+
+  if (!modal) return;
+
+  const openModal = (e) => {
+    e.preventDefault();
+    modal.classList.add('active');
+  };
+
+  const closeModal = () => {
+    modal.classList.remove('active');
+  };
+
+  contactBtns.forEach(btn => btn.addEventListener('click', openModal));
+  if (closeBtn) closeBtn.addEventListener('click', closeModal);
+  
+  // Close on backdrop click
+  modal.addEventListener('click', (e) => {
+    if (e.target === modal) closeModal();
+  });
+
+  // Close on Escape key
+  document.addEventListener('keydown', (e) => {
+    if (e.key === 'Escape' && modal.classList.contains('active')) {
+      closeModal();
+    }
+  });
+}
+
+/* ═══════════════════════════════════════════════════════════════
+   5.  Cleanup
    ═══════════════════════════════════════════════════════════════ */
 
 function cleanup() {
@@ -253,7 +289,7 @@ function cleanup() {
 }
 
 /* ═══════════════════════════════════════════════════════════════
-   5.  Init
+   6.  Init
    ═══════════════════════════════════════════════════════════════ */
 
 (function main() {
@@ -262,6 +298,9 @@ function cleanup() {
 
   // Setup page transitions
   initPageTransitions();
+  
+  // Setup contact modal
+  initContactModal();
 
   // Render work grid
   renderWorkGrid();

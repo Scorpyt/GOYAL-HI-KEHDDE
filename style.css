@@ -597,6 +597,101 @@ button {
 }
 
 .social-link:hover { color: var(--text-primary); }
+/* ── Contact Modal ──────────────────────────────────────────────── */
+.contact-modal-overlay {
+  position: fixed;
+  inset: 0;
+  z-index: 9999;
+  background: rgba(11, 11, 13, 0.85);
+  backdrop-filter: blur(8px);
+  -webkit-backdrop-filter: blur(8px);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  opacity: 0;
+  pointer-events: none;
+  transition: opacity var(--duration-normal) var(--ease-out-expo);
+  padding: var(--gutter);
+}
+
+.contact-modal-overlay.active {
+  opacity: 1;
+  pointer-events: all;
+}
+
+.contact-modal-card {
+  background: var(--bg-alt);
+  border: 1px solid var(--border);
+  padding: var(--space-2xl) var(--space-xl);
+  border-radius: var(--radius-lg);
+  max-width: 480px;
+  width: 100%;
+  position: relative;
+  transform: translateY(20px) scale(0.95);
+  transition: transform var(--duration-normal) var(--ease-out-expo);
+}
+
+.contact-modal-overlay.active .contact-modal-card {
+  transform: translateY(0) scale(1);
+}
+
+.contact-modal-close {
+  position: absolute;
+  top: var(--space-md);
+  right: var(--space-md);
+  background: none;
+  border: none;
+  color: var(--text-secondary);
+  font-size: 1.5rem;
+  line-height: 1;
+  cursor: pointer;
+  padding: var(--space-xs);
+  transition: color var(--duration-fast);
+}
+
+.contact-modal-close:hover {
+  color: var(--text-primary);
+}
+
+.contact-modal-title {
+  font-family: 'Crimson Pro', serif;
+  font-weight: 400;
+  font-size: 2.5rem;
+  margin-bottom: var(--space-xl);
+  line-height: 1.1;
+}
+
+.contact-modal-list {
+  list-style: none;
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-lg);
+}
+
+.contact-modal-list li {
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-2xs);
+}
+
+.contact-label {
+  font-size: 0.75rem;
+  text-transform: uppercase;
+  letter-spacing: 0.05em;
+  color: var(--text-tertiary);
+}
+
+.contact-link {
+  font-size: 1.25rem;
+  font-weight: 500;
+  color: var(--text-primary);
+  width: max-content;
+  transition: color var(--duration-fast);
+}
+
+.contact-link:hover {
+  color: var(--accent);
+}
 
 /* ── Responsive ───────────────────────────────────────────────── */
 @media (max-width: 900px) {
