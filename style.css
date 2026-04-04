@@ -627,14 +627,14 @@ button {
   pointer-events: all;
 }
 
-/* Fade page in on load */
-body {
-  opacity: 0;
-  transition: opacity 0.5s ease;
+/* Fade page in on load — pure CSS, no JS dependency */
+@keyframes pageFadeIn {
+  from { opacity: 0; }
+  to   { opacity: 1; }
 }
 
-body.page-loaded {
-  opacity: 1;
+body {
+  animation: pageFadeIn 0.5s ease forwards;
 }
 
 /* ── Locomotive Scroll Overrides ─────────────────────────────── */

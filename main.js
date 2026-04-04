@@ -418,21 +418,10 @@ function onResize() {
 }
 
 /* ═══════════════════════════════════════════════════════════════
-   9.  Entrance Animation (fade page in on load)
-   ═══════════════════════════════════════════════════════════════ */
-
-function initEntrance() {
-  document.body.classList.add('page-loaded');
-}
-
-/* ═══════════════════════════════════════════════════════════════
-   10.  Init
+   9.  Init
    ═══════════════════════════════════════════════════════════════ */
 
 (async function main() {
-  // Page entrance
-  initEntrance();
-
   // Setup page transitions
   initPageTransitions();
 

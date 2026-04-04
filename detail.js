@@ -106,18 +106,6 @@ function initScrollReveal() {
 /* ── Init ─────────────────────────────────────────────────────── */
 
 document.addEventListener('DOMContentLoaded', () => {
-  // Fade page in
-  document.body.classList.add('page-loaded');
-
-  // Dismiss entry overlay if present
-  const entryOverlay = document.getElementById('page-entry-overlay');
-  if (entryOverlay) {
-    requestAnimationFrame(() => {
-      entryOverlay.style.opacity = '0';
-      setTimeout(() => entryOverlay.remove(), 500);
-    });
-  }
-
   initLocomotiveScroll();
   initPageTransitions();
   initScrollReveal();
