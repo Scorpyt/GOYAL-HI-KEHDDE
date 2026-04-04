@@ -27,22 +27,22 @@ const PROJECTS = [
     slug:     'saint-petersburg',
   },
   {
-    title:    'Bridging the Gap',
+    title:    'Pune',
     category: 'Typography',
     image:    'assets/images/bridging-the-gap.png',
-    slug:     'bridging-the-gap',
+    slug:     'pune',
   },
   {
-    title:    'Urban Horizons',
+    title:    'Kalsubai',
     category: 'Architecture',
     image:    'assets/images/urban-horizons.png',
-    slug:     'urban-horizons',
+    slug:     'kalsubai',
   },
   {
-    title:    'Lost Trails',
+    title:    'Varanasi',
     category: 'Landscape',
     image:    'assets/images/lost-trails.png',
-    slug:     'lost-trails',
+    slug:     'varanasi',
   },
 ];
 
