@@ -9,24 +9,6 @@ import { vertexShader, fragmentShader }   from './tunnelShader.js';
 
 const PROJECTS = [
   {
-    title:    'Transcendence',
-    category: 'Creative Direction',
-    image:    'assets/images/transcendence.png',
-    slug:     'transcendence',
-  },
-  {
-    title:    'Notice Everything',
-    category: 'Brand Identity',
-    image:    'assets/images/notice-everything.png',
-    slug:     'notice-everything',
-  },
-  {
-    title:    'Saint Petersburg',
-    category: 'Editorial Design',
-    image:    'assets/images/saint-petersburg.png',
-    slug:     'saint-petersburg',
-  },
-  {
     title:    'Pune',
     category: 'Typography',
     image:    'assets/images/bridging-the-gap.png',
