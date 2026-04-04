@@ -1,10 +1,7 @@
 /* ═══════════════════════════════════════════════════════════════
    main.js  –  Travel Shutter Portfolio · Entry Point
-   Locomotive Scroll + GSAP ScrollTrigger + Three.js
+   Locomotive Scroll + GSAP ScrollTrigger
    ═══════════════════════════════════════════════════════════════ */
-
-import { ScrubEngine }                    from './scrubEngine.js';
-import { vertexShader, fragmentShader }   from './tunnelShader.js';
 
 /* ── Configuration ────────────────────────────────────────────── */
 
@@ -29,122 +26,19 @@ const PROJECTS = [
   },
 ];
 
-const FRAME_CONFIG = {
-  totalFrames: 190,
-  basePath:    './Model image/',
-  prefix:      'ezgif-frame-',
-  ext:         '.jpg',
-  padLength:   3,
-  cacheSize:   40,
-};
-
 /* ── State ────────────────────────────────────────────────────── */
 
-let renderer, scene, camera, planeMesh, shaderMaterial;
-let scrubber;
-let scrollProgress = 0;
-let raf;
-let isReady = false;
 let locoScroll = null;
 
 /* ── DOM Refs ─────────────────────────────────────────────────── */
 
-const canvas       = document.getElementById('hero-canvas');
 const loaderEl     = document.getElementById('loader');
-const loaderBar    = document.getElementById('loader-bar');
 const heroSection  = document.getElementById('hero-section');
 const workGrid     = document.getElementById('work-grid');
 const scrollWrapper = document.querySelector('[data-scroll-container]');
 
 /* ═══════════════════════════════════════════════════════════════
-   1.  Three.js Setup (with error handling)
-   ═══════════════════════════════════════════════════════════════ */
-
-function initThree() {
-  if (!canvas) {
-    console.warn('Hero canvas not found, skipping Three.js init');
-    return false;
-  }
-
-  try {
-    renderer = new THREE.WebGLRenderer({
-      canvas,
-      antialias: false,
-      alpha: false,
-      powerPreference: 'high-performance',
-      failIfMajorPerformanceCaveat: false,
-    });
-    renderer.setPixelRatio(Math.min(window.devicePixelRatio, 1.5));
-    renderer.setSize(window.innerWidth, window.innerHeight);
-    renderer.setClearColor(0x0B0B0D, 1);
-
-    scene  = new THREE.Scene();
-    camera = new THREE.OrthographicCamera(-1, 1, 1, -1, 0, 1);
-
-    shaderMaterial = new THREE.ShaderMaterial({
-      uniforms: {
-        uTexture:    { value: null },
-        uProgress:   { value: 0 },
-        uDistortion: { value: 0.12 },
-        uResolution: { value: new THREE.Vector2(window.innerWidth, window.innerHeight) },
-      },
-      vertexShader,
-      fragmentShader,
-      depthTest:  false,
-      depthWrite: false,
-    });
-
-    const geo = new THREE.PlaneGeometry(2, 2);
-    planeMesh = new THREE.Mesh(geo, shaderMaterial);
-    scene.add(planeMesh);
-
-    return true;
-  } catch (e) {
-    console.error('WebGL initialization failed:', e);
-    if (canvas) canvas.style.display = 'none';
-    return false;
-  }
-}
-
-/* ═══════════════════════════════════════════════════════════════
-   2.  Image Sequence / ScrubEngine (with timeout)
-   ═══════════════════════════════════════════════════════════════ */
-
-async function initScrubber() {
-  if (!shaderMaterial) return;
-
-  scrubber = new ScrubEngine({
-    ...FRAME_CONFIG,
-    onProgress(loaded, total) {
-      const pct = (loaded / total) * 100;
-      if (loaderBar) loaderBar.style.width = `${pct}%`;
-    },
-  });
-
-  // Add a timeout to prevent infinite hang
-  const LOAD_TIMEOUT = 20000; // 20 seconds max
-  try {
-    await Promise.race([
-      scrubber.preload(),
-      new Promise((_, reject) =>
-        setTimeout(() => reject(new Error('Frame loading timeout')), LOAD_TIMEOUT)
-      ),
-    ]);
-  } catch (e) {
-    console.warn('Scrubber preload issue:', e.message);
-  }
-
-  // Apply first frame
-  const firstTex = scrubber.getTexture(0);
-  if (firstTex) shaderMaterial.uniforms.uTexture.value = firstTex;
-
-  // Hide loader
-  if (loaderEl) loaderEl.classList.add('hidden');
-  isReady = true;
-}
-
-/* ═══════════════════════════════════════════════════════════════
-   3.  Locomotive Scroll + GSAP ScrollTrigger Integration
+   1.  Locomotive Scroll + GSAP ScrollTrigger Integration
    ═══════════════════════════════════════════════════════════════ */
 
 function initLocomotiveScroll() {
@@ -181,7 +75,6 @@ function initLocomotiveScroll() {
     pinType: scrollWrapper.style.transform ? 'transform' : 'fixed',
   });
 
-  // Refresh both on update
   ScrollTrigger.addEventListener('refresh', () => locoScroll.update());
   ScrollTrigger.defaults({ scroller: scrollWrapper });
 }
@@ -189,25 +82,27 @@ function initLocomotiveScroll() {
 function initScrollTrigger() {
   gsap.registerPlugin(ScrollTrigger);
 
-  // First init Locomotive
+  // Init Locomotive first
   initLocomotiveScroll();
 
   const scrollerEl = scrollWrapper || undefined;
 
-  // Pin the hero and scrub the image sequence
+  // Parallax effect on hero background image
   if (heroSection) {
-    ScrollTrigger.create({
-      trigger: heroSection,
-      scroller: scrollerEl,
-      start:   'top top',
-      end:     '+=150%',
-      pin:     true,
-      pinSpacing: false,
-      scrub:   0.6,
-      onUpdate(self) {
-        scrollProgress = self.progress;
-      },
-    });
+    const heroBg = heroSection.querySelector('.hero-bg-image');
+    if (heroBg) {
+      gsap.to(heroBg, {
+        y: '20%',
+        scale: 1.1,
+        scrollTrigger: {
+          trigger: heroSection,
+          scroller: scrollerEl,
+          start: 'top top',
+          end: 'bottom top',
+          scrub: true,
+        },
+      });
+    }
 
     // Fade hero text out as user scrolls
     gsap.to('#hero-overlay', {
@@ -215,9 +110,9 @@ function initScrollTrigger() {
       scrollTrigger: {
         trigger: heroSection,
         scroller: scrollerEl,
-        start:  'top top',
-        end:    '+=60%',
-        scrub:  true,
+        start: 'top top',
+        end: '+=60%',
+        scrub: true,
       },
     });
   }
@@ -270,7 +165,7 @@ function initScrollTrigger() {
     });
   }
 
-  // Refresh ScrollTrigger after a tick so Loco sizes are settled
+  // Refresh after a tick
   setTimeout(() => {
     ScrollTrigger.refresh();
     if (locoScroll) locoScroll.update();
@@ -278,24 +173,7 @@ function initScrollTrigger() {
 }
 
 /* ═══════════════════════════════════════════════════════════════
-   4.  Render Loop
-   ═══════════════════════════════════════════════════════════════ */
-
-function render() {
-  raf = requestAnimationFrame(render);
-
-  if (!isReady || !scrubber || !shaderMaterial || !renderer) return;
-
-  const tex = scrubber.getTexture(scrollProgress);
-  if (tex) shaderMaterial.uniforms.uTexture.value = tex;
-
-  shaderMaterial.uniforms.uProgress.value = scrollProgress;
-
-  renderer.render(scene, camera);
-}
-
-/* ═══════════════════════════════════════════════════════════════
-   5.  Work Grid
+   2.  Work Grid
    ═══════════════════════════════════════════════════════════════ */
 
 function renderWorkGrid() {
@@ -327,35 +205,33 @@ function renderWorkGrid() {
 }
 
 /* ═══════════════════════════════════════════════════════════════
-   6.  Page Transition (smooth fade-out before navigate)
+   3.  Page Transitions
    ═══════════════════════════════════════════════════════════════ */
 
 function initPageTransitions() {
-  // Intercept all internal links for a smooth fade-out transition
   document.addEventListener('click', (e) => {
     const link = e.target.closest('a[href]');
     if (!link) return;
 
     const href = link.getAttribute('href');
-    // Skip external links, anchors, mailto, tel
     if (!href || href.startsWith('#') || href.startsWith('mailto:') ||
         href.startsWith('tel:') || href.startsWith('http') || href.startsWith('javascript:')) {
       return;
     }
 
+    // Skip download links
+    if (link.hasAttribute('download')) return;
+
     e.preventDefault();
 
-    // Create transition overlay
     const overlay = document.createElement('div');
     overlay.className = 'page-transition-overlay';
     document.body.appendChild(overlay);
 
-    // Trigger the transition
     requestAnimationFrame(() => {
       overlay.classList.add('active');
     });
 
-    // Cleanup WebGL before navigating
     setTimeout(() => {
       cleanup();
       window.location.href = href;
@@ -364,87 +240,34 @@ function initPageTransitions() {
 }
 
 /* ═══════════════════════════════════════════════════════════════
-   7.  Cleanup (prevent memory leaks)
+   4.  Cleanup
    ═══════════════════════════════════════════════════════════════ */
 
 function cleanup() {
-  // Cancel render loop
-  if (raf) cancelAnimationFrame(raf);
-
-  // Dispose scrubber textures
-  if (scrubber) scrubber.dispose();
-
-  // Dispose Three.js
-  if (renderer) {
-    renderer.dispose();
-    renderer.forceContextLoss();
-    renderer = null;
-  }
-  if (shaderMaterial) {
-    shaderMaterial.dispose();
-    shaderMaterial = null;
-  }
-  if (planeMesh) {
-    if (planeMesh.geometry) planeMesh.geometry.dispose();
-    planeMesh = null;
-  }
-
-  // Kill ScrollTrigger instances
   ScrollTrigger.getAll().forEach(t => t.kill());
 
-  // Destroy Locomotive Scroll
   if (locoScroll) {
     locoScroll.destroy();
     locoScroll = null;
   }
-
-  // Remove resize listener
-  window.removeEventListener('resize', onResize);
 }
 
 /* ═══════════════════════════════════════════════════════════════
-   8.  Resize Handler
+   5.  Init
    ═══════════════════════════════════════════════════════════════ */
 
-function onResize() {
-  const w = window.innerWidth;
-  const h = window.innerHeight;
+(function main() {
+  // Hide loader immediately (no more frame loading)
+  if (loaderEl) loaderEl.classList.add('hidden');
 
-  if (renderer) {
-    renderer.setSize(w, h);
-  }
-  if (shaderMaterial) {
-    shaderMaterial.uniforms.uResolution.value.set(w, h);
-  }
-}
-
-/* ═══════════════════════════════════════════════════════════════
-   9.  Init
-   ═══════════════════════════════════════════════════════════════ */
-
-(async function main() {
   // Setup page transitions
   initPageTransitions();
 
   // Render work grid
   renderWorkGrid();
 
-  // Try Three.js init
-  const threeOK = initThree();
-
-  if (threeOK) {
-    await initScrubber();
-    render();
-  } else {
-    // Still hide the loader even if WebGL failed
-    if (loaderEl) loaderEl.classList.add('hidden');
-  }
-
   // Init scroll system
   initScrollTrigger();
-
-  // Resize handler
-  window.addEventListener('resize', onResize);
 
   // Cleanup on page unload
   window.addEventListener('beforeunload', cleanup);

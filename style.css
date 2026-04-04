@@ -261,13 +261,20 @@ button {
   overflow: hidden;
 }
 
-#hero-canvas {
+.hero-bg-image {
   position: absolute;
   top: 0;
   left: 0;
   width: 100%;
   height: 100%;
   display: block;
+  object-fit: cover;
+  object-position: center center;
+  /* Sharpen rendering */
+  image-rendering: -webkit-optimize-contrast;
+  image-rendering: crisp-edges;
+  /* Invert + slight warm tone for dark theme */
+  filter: invert(1) contrast(1.05) brightness(0.95);
 }
 
 .hero-overlay {
@@ -279,6 +286,13 @@ button {
   padding: 0 var(--gutter) var(--space-2xl);
   pointer-events: none;
   z-index: 2;
+  /* Gradient for text readability */
+  background: linear-gradient(
+    to bottom,
+    rgba(11, 11, 13, 0.2) 0%,
+    rgba(11, 11, 13, 0.4) 50%,
+    rgba(11, 11, 13, 0.85) 100%
+  );
 }
 
 .hero-content {
