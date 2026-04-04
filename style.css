@@ -360,6 +360,41 @@ button {
   }
 }
 
+/* ── Showcase Image Section ──────────────────────────────────── */
+.showcase-section {
+  position: relative;
+  z-index: 5;
+  background: var(--bg);
+  padding: 0 var(--gutter);
+}
+
+.showcase-inner {
+  max-width: var(--max-width);
+  margin: 0 auto;
+}
+
+.showcase-image-wrap {
+  width: 100%;
+  border-radius: var(--radius-lg);
+  overflow: hidden;
+  position: relative;
+}
+
+.showcase-image {
+  width: 100%;
+  height: auto;
+  display: block;
+  object-fit: cover;
+  object-position: center center;
+  /* Desktop: cinematic wide aspect ratio */
+  aspect-ratio: 21 / 9;
+  transition: transform var(--duration-slow) var(--ease-out-expo);
+}
+
+.showcase-image-wrap:hover .showcase-image {
+  transform: scale(1.02);
+}
+
 /* ── Selected Work Section ────────────────────────────────────── */
 .work-section {
   position: relative;
@@ -571,6 +606,10 @@ button {
     gap: var(--space-md);
     align-items: flex-start;
   }
+
+  .showcase-image {
+    aspect-ratio: 16 / 9;
+  }
 }
 
 @media (max-width: 600px) {
@@ -596,6 +635,10 @@ button {
 
   .project-card-info {
     padding: var(--space-md);
+  }
+
+  .showcase-image {
+    aspect-ratio: 3 / 2;
   }
 }
 
