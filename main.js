@@ -117,6 +117,48 @@ function initScrollTrigger() {
     });
   }
 
+  // Animate About Section
+  const aboutImage = document.querySelector('#about-image');
+  if (aboutImage) {
+    gsap.from('#about-image', {
+      scale: 0.95,
+      opacity: 0,
+      duration: 1.2,
+      ease: 'power3.out',
+      scrollTrigger: {
+        trigger: '#about',
+        scroller: scrollerEl,
+        start: 'top 80%',
+      },
+    });
+    
+    gsap.from('#about-quote', {
+      y: 50,
+      opacity: 0,
+      duration: 1.2,
+      delay: 0.2,
+      ease: 'power3.out',
+      scrollTrigger: {
+        trigger: '#about',
+        scroller: scrollerEl,
+        start: 'top 80%',
+      },
+    });
+
+    gsap.from('#about-details', {
+      y: 40,
+      opacity: 0,
+      duration: 1,
+      delay: 0.4,
+      ease: 'power3.out',
+      scrollTrigger: {
+        trigger: '#about',
+        scroller: scrollerEl,
+        start: 'top 80%',
+      },
+    });
+  }
+
   // Animate work section in
   const workHeader = document.querySelector('.work-header');
   if (workHeader) {
