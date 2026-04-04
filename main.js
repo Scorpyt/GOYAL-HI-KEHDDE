@@ -202,6 +202,7 @@ function initScrollTrigger() {
       start:   'top top',
       end:     '+=150%',
       pin:     true,
+      pinSpacing: false,
       scrub:   0.6,
       onUpdate(self) {
         scrollProgress = self.progress;

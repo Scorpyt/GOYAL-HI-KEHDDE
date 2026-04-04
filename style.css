@@ -365,7 +365,7 @@ button {
   position: relative;
   z-index: 5;
   background: var(--bg);
-  padding: 0 var(--gutter) var(--space-3xl);
+  padding: var(--space-xl) var(--gutter) var(--space-3xl);
   min-height: 100vh;
 }
 
