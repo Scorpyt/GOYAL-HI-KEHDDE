@@ -12,11 +12,17 @@
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link href="https://fonts.googleapis.com/css2?family=Crimson+Pro:ital,wght@0,400;0,600;1,400;1,600&family=Inter:wght@300;400;500;600;700;800;900&display=swap" rel="stylesheet">
 
+  <!-- Locomotive Scroll CSS -->
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/locomotive-scroll@4.1.4/dist/locomotive-scroll.min.css">
+
   <!-- Styles -->
   <link rel="stylesheet" href="style.css">
 
   <!-- Three.js -->
   <script src="https://cdnjs.cloudflare.com/ajax/libs/three.js/r128/three.min.js"></script>
+
+  <!-- Locomotive Scroll -->
+  <script src="https://cdn.jsdelivr.net/npm/locomotive-scroll@4.1.4/dist/locomotive-scroll.min.js"></script>
 
   <!-- GSAP + ScrollTrigger -->
   <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/gsap.min.js"></script>
@@ -32,6 +38,9 @@
     </div>
   </div>
 
+  <!-- ═════ Page Transition Overlay ═════ -->
+  <div class="page-transition-overlay" id="page-entry-overlay" style="opacity:1;"></div>
+
   <!-- ═════ Header ═════ -->
   <header class="site-header" id="site-header">
     <div class="header-inner">
@@ -44,51 +53,56 @@
     </div>
   </header>
 
-  <!-- ═════ Hero Section ═════ -->
-  <section class="hero" id="hero-section">
-    <canvas id="hero-canvas"></canvas>
-    <div class="hero-overlay" id="hero-overlay">
-      <div class="hero-content" id="hero-content">
-        <div class="hero-text-block">
-          <p class="hero-subtitle" id="hero-subtitle">Hey, I'm a</p>
-          <h1 class="hero-title" id="hero-title">Travel<br>Photographer</h1>
-        </div>
-        <div class="hero-services" id="hero-services">
-          <div class="service-item">Creative Direction</div>
-          <div class="service-item">Brand Identity</div>
-          <div class="service-item">Editorial Design</div>
-          <div class="service-item">Typography</div>
+  <!-- ═════ Scroll Container ═════ -->
+  <main data-scroll-container>
+
+    <!-- ═════ Hero Section ═════ -->
+    <section class="hero" id="hero-section" data-scroll-section>
+      <canvas id="hero-canvas"></canvas>
+      <div class="hero-overlay" id="hero-overlay">
+        <div class="hero-content" id="hero-content">
+          <div class="hero-text-block">
+            <p class="hero-subtitle" id="hero-subtitle">Hey, I'm a</p>
+            <h1 class="hero-title" id="hero-title">Travel<br>Photographer</h1>
+          </div>
+          <div class="hero-services" id="hero-services">
+            <div class="service-item">Creative Direction</div>
+            <div class="service-item">Brand Identity</div>
+            <div class="service-item">Editorial Design</div>
+            <div class="service-item">Typography</div>
+          </div>
         </div>
       </div>
-    </div>
-  </section>
+    </section>
 
-  <!-- ═════ Selected Work ═════ -->
-  <section class="work-section" id="work">
-    <div class="work-header">
-      <h2 class="section-title" id="section-title-work">Selected Work</h2>
-      <span class="work-count">(03)</span>
-    </div>
-    <div class="work-grid" id="work-grid">
-      <!-- JS-rendered project cards -->
-    </div>
-  </section>
+    <!-- ═════ Selected Work ═════ -->
+    <section class="work-section" id="work" data-scroll-section>
+      <div class="work-header">
+        <h2 class="section-title" id="section-title-work">Selected Work</h2>
+        <span class="work-count">(03)</span>
+      </div>
+      <div class="work-grid" id="work-grid">
+        <!-- JS-rendered project cards -->
+      </div>
+    </section>
 
-  <!-- ═════ Footer ═════ -->
-  <footer class="site-footer" id="site-footer">
-    <div class="footer-inner">
-      <p class="footer-tagline">Let's create something extraordinary.</p>
-      <a href="mailto:khushdilgoyal597@gmail.com" class="footer-email" id="footer-email">khushdilgoyal597@gmail.com</a>
-      <div class="footer-bottom">
-        <span>&copy; 2026 Travel Shutter. All rights reserved.</span>
-        <div class="footer-socials">
-          <a href="#" class="social-link" id="social-dribbble">Dribbble</a>
-          <a href="#" class="social-link" id="social-behance">Behance</a>
-          <a href="#" class="social-link" id="social-linkedin">LinkedIn</a>
+    <!-- ═════ Footer ═════ -->
+    <footer class="site-footer" id="site-footer" data-scroll-section>
+      <div class="footer-inner">
+        <p class="footer-tagline">Let's create something extraordinary.</p>
+        <a href="mailto:khushdilgoyal597@gmail.com" class="footer-email" id="footer-email">khushdilgoyal597@gmail.com</a>
+        <div class="footer-bottom">
+          <span>&copy; 2026 Travel Shutter. All rights reserved.</span>
+          <div class="footer-socials">
+            <a href="#" class="social-link" id="social-dribbble">Dribbble</a>
+            <a href="#" class="social-link" id="social-behance">Behance</a>
+            <a href="#" class="social-link" id="social-linkedin">LinkedIn</a>
+          </div>
         </div>
       </div>
-    </div>
-  </footer>
+    </footer>
+
+  </main>
 
   <!-- Entry point -->
   <script type="module" src="main.js"></script>
