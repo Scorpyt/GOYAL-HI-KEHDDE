@@ -98,6 +98,15 @@
   aspect-ratio: 21 / 9;
 }
 
+.gallery-portrait img {
+  aspect-ratio: 4 / 5;
+  object-fit: cover;
+}
+
+.gallery-landscape img {
+  aspect-ratio: 16 / 9;
+}
+
 .gallery-item:hover img {
   transform: scale(1.04);
 }
@@ -205,3 +214,5 @@
 .gallery-item.reveal-on-scroll:nth-child(2) { transition-delay: 0.1s; }
 .gallery-item.reveal-on-scroll:nth-child(3) { transition-delay: 0.2s; }
 .gallery-item.reveal-on-scroll:nth-child(4) { transition-delay: 0.15s; }
+.gallery-item.reveal-on-scroll:nth-child(5) { transition-delay: 0.25s; }
+.gallery-item.reveal-on-scroll:nth-child(6) { transition-delay: 0.3s; }

@@ -8,20 +8,20 @@
 const PROJECTS = [
   {
     title:    'Pune',
-    category: 'Typography',
-    image:    'assets/images/bridging-the-gap.png',
+    category: 'Street / Documentary',
+    image:    'assets/images/pune-ganesh-darshan.jpg',
     slug:     'pune',
   },
   {
     title:    'Kalsubai',
-    category: 'Architecture',
-    image:    'assets/images/urban-horizons.png',
+    category: 'Landscape / Trek',
+    image:    'assets/images/kalsubai-sunset-sky.jpg',
     slug:     'kalsubai',
   },
   {
     title:    'Varanasi',
-    category: 'Landscape',
-    image:    'assets/images/lost-trails.png',
+    category: 'Sacred / Documentary',
+    image:    'assets/images/varanasi-aarti-smoke.jpg',
     slug:     'varanasi',
   },
 ];
